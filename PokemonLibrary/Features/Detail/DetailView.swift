@@ -13,14 +13,6 @@ struct DetailView: View {
     let pokemon: Pokemon
     var pokemonDetail: PokemonDetailResponse? = nil
     
-    @State var name: String = ""
-    @State var abilities: [String] = []
-    @State var height: String = ""
-    @State var weight: String = ""
-    @State var image: Image? = nil
-    @State var isLoading: Bool = true
-    @State var showError: Bool = false
-    @State var errorMessage: String = ""
     
     var body: some View {
         VStack {
@@ -29,16 +21,11 @@ struct DetailView: View {
                 Text("Loading…")
             case .loaded(let pokemonResponse):
                 VStack(spacing: 8.0) {
-                    if let image = image {
-                        image
-                            .resizable()
-                            .frame(width: 200, height: 200)
-                    } else {
-                        Image(systemName: "xmark.octagon")
-                            .onAppear{
-                                loadImage(from: URL(string: pokemonResponse.sprites.other.officialArtwork.url)!)
-                            }
-                    }
+                    Image(systemName: "xmark.octagon")
+                        .onAppear{
+                            loadImage(from: URL(string: pokemonResponse.sprites.other.officialArtwork.url)!)
+                        }
+                    
                     
                     Text(pokemonResponse.name)
                         .font(.title2)
