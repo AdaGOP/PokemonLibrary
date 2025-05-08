@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PokemonListResponse: Codable {
+struct PokemonListResponse: Decodable {
     let results: [Pokemon]
 }
     
