@@ -13,8 +13,6 @@ struct DetailView: View {
     let pokemon: Pokemon
     var pokemonDetail: PokemonDetailResponse? = nil
     
-    @State var image: Image? = nil
-    
     var body: some View {
         VStack {
             switch viewModel.state {
@@ -22,14 +20,13 @@ struct DetailView: View {
                 Text("Loading…")
             case .loaded(let pokemonResponse):
                 VStack(spacing: 8.0) {
-                    if let image = image {
+                    if let image = viewModel.image {
                         image
                             .resizable()
-                            .frame(width: 200, height: 200)
+                            .scaledToFit()
+                            .frame(height: 200)
                     } else {
-                        Image(systemName: "xmark.octagon").onAppear {
-                            loadImage(from: URL(string: pokemonResponse.sprites.other.officialArtwork.url)!)
-                        }
+                        Image(systemName: "xmark.octagon")
                     }
                     
                     Text(pokemonResponse.name)
@@ -57,17 +54,6 @@ struct DetailView: View {
         }
         .onAppear {
             viewModel.loadPokemonDetail(pokemon: pokemon)
-        }
-    }
-    
-    func loadImage(from url: URL) {
-        Task {
-            do {
-                let (data, _) = try await URLSession.shared.data(from: url)
-                if let uiImage = UIImage(data: data) {
-                    image = Image(uiImage: uiImage)
-                }
-            }
         }
     }
 }
