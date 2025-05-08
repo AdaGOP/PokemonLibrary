@@ -16,7 +16,7 @@ class PokemonDetailResponse: Decodable {
     let sprites: Sprites
 }
 
-struct Ability: Decodable {
+struct Ability: Decodable{
     let ability: AbilityDetail
 }
 
