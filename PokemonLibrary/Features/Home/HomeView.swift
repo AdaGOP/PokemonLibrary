@@ -19,16 +19,22 @@ struct HomeView: View {
                 case .loading:
                     Text("Loading...")
                 case .loaded(let pokemons):
-                    List(pokemons, id: \.name) { pokemon in
-                        HStack {
-                            Text(pokemon.name.capitalized)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(.gray)
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            navigationPath.append(pokemon)
+                    if pokemons.isEmpty {
+                        Text("Sorry, No Restaurants Found")
+                            .foregroundColor(.secondary)
+                            .padding()
+                    } else {
+                        List(pokemons, id: \.name) { pokemon in
+                            HStack {
+                                Text(pokemon.name.capitalized)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(.gray)
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                navigationPath.append(pokemon)
+                            }
                         }
                     }
                 case .error(let networkError):
