@@ -47,7 +47,7 @@ struct DetailView: View {
             
             
             case .error(let networkError):
-                Text("Error: \(networkError.errorDescription)")
+                Text("Error: \(networkError.errorDescription ?? "Unknown error")")
             }
         }
         .onAppear {

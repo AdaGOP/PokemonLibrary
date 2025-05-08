@@ -33,7 +33,7 @@ struct HomeView: View {
                         }
                     }
                 case .error(let networkError):
-                    Text("Error: \(networkError.errorDescription)")
+                    Text("Error: \(networkError.errorDescription ?? "Unknown error")")
                 }
             }
             .navigationTitle("Pokémon List")
