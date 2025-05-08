@@ -13,6 +13,7 @@ struct DetailView: View {
     let pokemon: Pokemon
     var pokemonDetail: PokemonDetailResponse? = nil
     
+    @State var image: Image? = nil
     
     var body: some View {
         VStack {
@@ -21,11 +22,15 @@ struct DetailView: View {
                 Text("Loading…")
             case .loaded(let pokemonResponse):
                 VStack(spacing: 8.0) {
-                    Image(systemName: "xmark.octagon")
-                        .onAppear{
+                    if let image = image {
+                        image
+                            .resizable()
+                            .frame(width: 200, height: 200)
+                    } else {
+                        Image(systemName: "xmark.octagon").onAppear {
                             loadImage(from: URL(string: pokemonResponse.sprites.other.officialArtwork.url)!)
                         }
-                    
+                    }
                     
                     Text(pokemonResponse.name)
                         .font(.title2)
