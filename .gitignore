@@ -5,3 +5,5 @@
 *.xcworkspace/xcuserdata/
 *.xcodeproj/xcuserdata/
 *.xcuserdata/
+*.xcodeproj/project.pbxproj
+*.xuserstate
