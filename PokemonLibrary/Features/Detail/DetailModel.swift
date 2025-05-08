@@ -6,8 +6,17 @@
 //
 
 import Foundation
+import SwiftUI
 
-class PokemonDetailResponse: Decodable {
+struct PokemonDetail {
+    let name: String
+    let abilities: [String]
+    let height: String
+    let weight: String
+    let image: Image?
+}
+
+struct PokemonDetailResponse: Decodable {
     let name: String
     let abilities: [Ability]
     let height: Int
@@ -28,14 +37,14 @@ struct Sprites: Decodable {
     let other: SpritesDetail
 }
 
-class SpritesDetail: Codable {
+struct SpritesDetail: Codable {
     let officialArtwork: SpritesArtwork
     
     enum CodingKeys: String, CodingKey {
         case officialArtwork = "official-artwork"
     }
     
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.officialArtwork = try container.decode(SpritesArtwork.self, forKey: .officialArtwork)
     }
