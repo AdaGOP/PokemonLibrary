@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class PokemonDetailResponse: Decodable {
     let name: String
@@ -52,4 +53,12 @@ struct SpritesArtwork: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.url = try container.decode(String.self, forKey: .url)
     }
+}
+
+struct PokemonDetail {
+    let name: String
+    let height: String
+    let weight: String
+    let abilities: [String]
+    var image: Image?
 }
