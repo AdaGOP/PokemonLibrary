@@ -20,15 +20,14 @@ struct HomeView: View {
                     Text("Loading...")
                 case .loaded(let pokemons):
                     List(pokemons, id: \.name) { pokemon in
-                        HStack {
-                            Text(pokemon.name.capitalized)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(.gray)
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            navigationPath.append(pokemon)
+                        NavigationLink(value: pokemon) {
+                            HStack {
+                                Text(pokemon.name.capitalized)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(.gray)
+                            }
+                            .contentShape(Rectangle())
                         }
                     }
                 case .error(let networkError):
