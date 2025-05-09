@@ -6,8 +6,27 @@
 //
 
 import Foundation
+import SwiftUICore
 
-class PokemonDetailResponse: Decodable {
+struct PokemonDetailUIModel {
+    let name: String
+    let abilities: [String]
+    let height: String
+    let weight: String
+    let image: Image?
+    
+    static func fromResponse(_ response: PokemonDetailResponse, image: Image?) -> Self {
+        return .init(
+            name: response.name.capitalized,
+            abilities: response.abilities.map { $0.ability.name.capitalized },
+            height: "Height: \(response.height) cm",
+            weight: "Weight: \(response.weight) kg",
+            image: image,
+        )
+    }
+}
+
+struct PokemonDetailResponse: Decodable {
     let name: String
     let abilities: [Ability]
     let height: Int

@@ -20,7 +20,7 @@ struct HomeView: View {
                     Text("Loading...")
                 case .loaded(let pokemons):
                     if pokemons.isEmpty {
-                        Text("Sorry, No Restaurants Found")
+                        Text("Sorry, No Pokemon Found")
                             .foregroundColor(.secondary)
                             .padding()
                     } else {
@@ -43,7 +43,7 @@ struct HomeView: View {
             }
             .navigationTitle("Pokémon List")
             .navigationDestination(for: Pokemon.self) { selected in
-                DetailView(pokemon: selected)
+                DetailView(viewModel: DetailViewModel(), pokemonUrl: selected.url)
             }
         }
         .onAppear {
