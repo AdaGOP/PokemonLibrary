@@ -13,10 +13,10 @@ enum NetworkPath {
     
     var url: URL? {
         switch self {
-        case .getPokemons:
-            return URL(string: "https://pokeapi.co/api/v2/pokemon?limit=50")
-        case .getPokemonDetail(let urlString):
-            return URL(string: urlString)
+            case .getPokemons:
+                return URL(string: "https://pokeapi.co/api/v2/pokemon?limit=50")
+            case .getPokemonDetail(let urlString):
+                return URL(string: urlString)
         }
     }
 }

@@ -33,12 +33,12 @@ struct HomeView: View {
                         }
                     }
                 case .error(let networkError):
-                    Text("Error: \(networkError.errorDescription)")
+                    Text("Error: \(networkError.errorDescription ?? "Unknown error")")
                 }
             }
             .navigationTitle("Pokémon List")
             .navigationDestination(for: Pokemon.self) { selected in
-                DetailView(pokemon: selected)
+                DetailView(pokemon: selected, viewModel: DetailViewModel())
             }
         }
         .onAppear {
