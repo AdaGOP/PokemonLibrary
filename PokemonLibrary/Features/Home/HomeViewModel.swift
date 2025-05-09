@@ -8,12 +8,6 @@
 import Foundation
 import SwiftUI
 
-enum HomeViewState {
-    case loading
-    case loaded([Pokemon])
-    case error(NetworkError)
-}
-
 final class HomeViewModel: ObservableObject {
     
     @Published var searchText: String = "" {
@@ -21,7 +15,7 @@ final class HomeViewModel: ObservableObject {
             applySearch()
         }
     }
-    @Published private(set) var state: HomeViewState = .loading
+    @Published private(set) var state: ViewState<[Pokemon]> = .loading
     
     func fetchPokemons() {
         updateState(.loading)
@@ -45,7 +39,7 @@ final class HomeViewModel: ObservableObject {
 }
 
 private extension HomeViewModel {
-    func updateState(_ state: HomeViewState) {
+    func updateState(_ state: ViewState<[Pokemon]>) {
         DispatchQueue.main.async {
             self.state = state
         }

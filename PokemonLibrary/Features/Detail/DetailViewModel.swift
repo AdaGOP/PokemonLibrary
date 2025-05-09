@@ -9,14 +9,8 @@ import Foundation
 import SwiftUICore
 import UIKit
 
-enum DetailViewState {
-    case loading
-    case loaded(PokemonDetailUIModel)
-    case error(NetworkError)
-}
-
 class DetailViewModel: ObservableObject {
-    @Published private(set) var state: DetailViewState = .loading
+    @Published private(set) var state: ViewState<PokemonDetailUIModel> = .loading
     
     func loadPokemonDetail(pokemonUrl: String) {
         updateState(.loading)
@@ -52,7 +46,7 @@ class DetailViewModel: ObservableObject {
 }
 
 private extension DetailViewModel {
-    func updateState(_ state: DetailViewState) {
+    func updateState(_ state: ViewState<PokemonDetailUIModel>) {
         DispatchQueue.main.async {
             self.state = state
         }
