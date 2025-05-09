@@ -19,16 +19,22 @@ struct HomeView: View {
                 case .loading:
                     Text("Loading...")
                 case .loaded(let pokemons):
-                    List(pokemons, id: \.name) { pokemon in
-                        HStack {
-                            Text(pokemon.name.capitalized)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(.gray)
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            navigationPath.append(pokemon)
+                    if pokemons.isEmpty {
+                        Text("Sorry, No Pokemon Found")
+                            .foregroundColor(.secondary)
+                            .padding()
+                    } else {
+                        List(pokemons, id: \.name) { pokemon in
+                            HStack {
+                                Text(pokemon.name.capitalized)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(.gray)
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                navigationPath.append(pokemon)
+                            }
                         }
                     }
                 case .error(let networkError):
@@ -37,7 +43,7 @@ struct HomeView: View {
             }
             .navigationTitle("Pokémon List")
             .navigationDestination(for: Pokemon.self) { selected in
-                DetailView(pokemon: selected)
+                DetailView(viewModel: DetailViewModel(), pokemonUrl: selected.url)
             }
         }
         .onAppear {
